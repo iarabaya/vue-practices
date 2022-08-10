@@ -29,11 +29,17 @@ export default {
 	methods: {
 		async getAnswer(){
 			
-			this.answer = 'Pensando...'
-			const { answer, image } = await fetch('https://yesno.wtf/api').then( r => r.json())
-			
-			this.answer = answer === 'yes' ? 'Si' : 'No'
-			this.img = image
+			try {
+				this.answer = 'Pensando...'
+				const { answer, image } = await fetch('https://yesno.wtf/api').then( r => r.json())
+				
+				this.answer = answer === 'yes' ? 'Si' : 'No'
+				this.img = image	
+			} catch (error) {
+				
+				this.answer = 'No se pudo cargar del API'
+				this.img = null
+			}
 
 		}
 	},
