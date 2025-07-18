@@ -5,7 +5,11 @@ import viteLogo from '/vite.svg'
 // import './bases/01-const-let'
 // import './bases/02-object-literals'
 // import './bases/03-arrays'
-import './bases/04-functions'
+// import './bases/04-functions'
+// import './bases/05-deses-obj'
+// import './bases/06-deses-arr'
+// import './bases/07-imp-exp'
+import './bases/08-promises'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
