@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue app</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>Hola mundo desde Vue Avanzado</h1>
+        <p>{{ mensaje }} {{signo}}</p>
+    </div>
+    <!-- <div id="segunda-app">
+        <h1>{{mensaje}} {{signo}}</h1>
+    </div> -->
+    <script>
+        const ComponentePrincipal = {
+            setup() {
+                return {
+                    mensaje: "Vue JS app principal"
+                }
+            }
+        }
+
+        const miMixin = {
+            data() {
+                return {
+                    signo: "!"
+                }
+            },
+            created() {
+                throw new Error('un error ha sucedido');
+            }
+        }
+
+        const app = Vue.createApp(ComponentePrincipal);
+
+        app.config.globalProperties.fecha = new Date().toDateString();
+        app.config.errorHandler = (err, vm, info) => {
+            console.log("¿Cuál fue el error?", err);
+            console.log("¿En donde fue el error?", info);
+        }
+
+        app.mixin(miMixin);
+
+        app.mount("#app");
+
+        // const ComponenteSecundario = {
+        //     setup() {
+        //         return {
+        //             mensaje: "Soy la segunda app"
+        //         }
+        //     }
+        // }
+
+
+        // const segundaApp = Vue.createApp(ComponenteSecundario);
+        // segundaApp.mixin(miMixin);
+        // segundaApp.mount("#segunda-app");
+    </script>
+</body>
+
+</html>
