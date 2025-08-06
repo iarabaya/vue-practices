@@ -1,11 +1,24 @@
-<script setup lang="ts"></script>
-
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <h1>Mi primera App de Vue</h1>
+
+  <hr>
+
+  <Counter/>
+  <Counter/>
+
 </template>
 
-<style scoped></style>
+<script setup lang="ts">
+import Counter from "./components/Counter.vue";
+import { computed, ref } from 'vue';
+
+const counter = ref(10);
+const squareCounter = computed(() => counter.value * counter.value)
+
+</script>
+
+<style scoped>
+h1 {
+  color: green;
+}
+</style>
