@@ -18,6 +18,9 @@ export default defineComponent({
   props: {
     value: { type: Number, required: true },
   },
+  emits: {
+    sendMessage: () => { return 1}
+  },
   setup(props) {
     const { counter, squareCounter } = useCounter(props.value);
     // const counter = ref(props.value);
