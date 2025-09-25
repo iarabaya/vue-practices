@@ -1,10 +1,22 @@
 <template>
     <section>
-        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png" alt="" class="brightness-0 h-[200px]">
+        <img :src="pokemonImage" class="fade-in h-[200px]" :class="{'brightness-0': !showPokemon}">
     </section>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
+
+interface Props {
+    pokemonId: number;
+    showPokemon?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+    showPokemon: false
+});
+
+const pokemonImage = computed(()=> `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${props.pokemonId}.png`)
 
 </script>
 
