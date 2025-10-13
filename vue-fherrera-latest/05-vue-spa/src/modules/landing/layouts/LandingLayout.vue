@@ -11,34 +11,32 @@ import { RouterLink, RouterView } from 'vue-router';
           <img src="@/assets/logo.svg" alt="Vue logo" class="logo" width="30" height="40" />
         </RouterLink>
       </div>
-      <nav class="ml-auto space-x-4 flex items-center h-10 sm:space-x-6">
-        <RouterLink
-          class="bg-blue-500 p-2 rounded-xl text-white font-bold hover:bg-blue-700"
-          :to="{ name: 'home' }"
-          >Home</RouterLink
-        >
-        <RouterLink
-          class="bg-blue-500 p-2 rounded-xl text-white font-bold hover:bg-blue-700"
-          to="/contact"
-          >Contact</RouterLink
-        >
-        <RouterLink
-          class="bg-blue-500 p-2 rounded-xl text-white font-bold hover:bg-blue-700"
-          to="/features"
-          >Features</RouterLink
-        >
-        <RouterLink
-          class="bg-blue-500 p-2 rounded-xl text-white font-bold hover:bg-blue-700"
-          to="/pricing"
-          >Pricing</RouterLink
-        >
+      <nav class="flex flex-col ml-auto space-x-4 items-start h-10 sm:space-x-6">
+        <div class="space-x-4">
+          <!-- exact-active-class="underline font-semibold" -->
+          <RouterLink class="hover:bg-blue-100" :to="{ name: 'home' }">Home</RouterLink>
+          <RouterLink class="hover:bg-blue-100" to="/features">Features</RouterLink>
+          <RouterLink class="hover:bg-blue-100" to="/pricing">Pricing</RouterLink>
+          <RouterLink class="hover:bg-blue-100" to="/contact">Contact</RouterLink>
+        </div>
+
+        <div class="space-x-4">
+          <RouterLink class="hover:bg-blue-100" to="/pokemon/1">Pokémons</RouterLink>
+          <RouterLink class="hover:bg-blue-100" to="/auth">Login</RouterLink>
+        </div>
       </nav>
     </header>
     <!-- Fin Header -->
 
     <!-- Main -->
     <main class="flex-1 flex items-center justify-center">
-      <RouterView />
+      <router-view v-slot="{ Component }">
+        <keep-alive>
+          <component :is="Component" />
+        </keep-alive>
+      </router-view>
+
+      <!-- <RouterView /> -->
     </main>
     <!-- Fin Main -->
 
