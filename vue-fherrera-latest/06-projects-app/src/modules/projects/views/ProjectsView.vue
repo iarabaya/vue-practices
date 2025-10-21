@@ -63,7 +63,7 @@ import ModalIcon from '@/modules/common/icons/ModalIcon.vue';
 import { ref } from 'vue';
 
 const modalOpen = ref(false);
-const customModalOpen = ref(true);
+const customModalOpen = ref(false);
 
 const onNewValue = (projectName: string) => {
   console.log({ projectName });
