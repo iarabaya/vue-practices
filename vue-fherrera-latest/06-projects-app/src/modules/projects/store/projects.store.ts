@@ -32,6 +32,15 @@ export const useProjectsStore = defineStore('projects', () => {
     });
   };
 
+  const addTaskToProject = (id: string, name: string) => {
+    const project = projects.value.find((project) => project.id === id);
+    project?.tasks.push({
+      id: uuidv4(),
+      name: name,
+      completedAt: undefined,
+    });
+  };
+
   return {
     //Properties
     projects,
@@ -42,5 +51,6 @@ export const useProjectsStore = defineStore('projects', () => {
 
     //Actions
     addProject,
+    addTaskToProject,
   };
 });
