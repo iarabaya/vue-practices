@@ -17,14 +17,17 @@
           class="hover:bg-base-300"
         >
           <th>{{ index + 1 }}</th>
-          <td>{{ project.name }}</td>
+          <td>
+            <span @dblclick="console.log('dbclick')">{{ project.name }}</span>
+          </td>
           <td>{{ project.taskCount }}</td>
           <td>
             <progress
-              class="progress progress-primary w-56"
+              class="progress progress-primary w-56 mr-2"
               :value="project.completion"
               max="100"
             ></progress>
+            {{ project.completion }} %
           </td>
         </tr>
       </tbody>
