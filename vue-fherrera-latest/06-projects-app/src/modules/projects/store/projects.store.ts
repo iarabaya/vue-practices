@@ -32,13 +32,27 @@ export const useProjectsStore = defineStore('projects', () => {
     });
   };
 
-  const addTaskToProject = (id: string, name: string) => {
-    const project = projects.value.find((project) => project.id === id);
+  const addTaskToProject = (projectId: string, taskName: string) => {
+    if (taskName.trim().length === 0) return;
+
+    const project = projects.value.find((project) => project.id === projectId);
+    if (!project) return;
+
     project?.tasks.push({
       id: uuidv4(),
-      name: name,
+      name: taskName,
       completedAt: undefined,
     });
+  };
+
+  const toggleTask = (projectId: string, taskId: string) => {
+    const project = projects.value.find((project) => project.id === projectId);
+    if (!project) return;
+
+    const task = project.tasks.find((t) => t.id === taskId);
+    if (!task) return;
+
+    task.completedAt = task.completedAt ? undefined : new Date();
   };
 
   return {
@@ -49,8 +63,23 @@ export const useProjectsStore = defineStore('projects', () => {
     projectList: computed(() => [...projects.value]),
     noProjects: computed(() => projects.value.length === 0),
 
+    projectsWithCompletion: computed(() => {
+      const projectsCompletion = projects.value.map((project) => {
+        const completedTasks = project.tasks.filter((t) => t.completedAt !== undefined);
+
+        return {
+          id: project.id,
+          name: project.name,
+          taskCount: project.tasks.length,
+          completion: (completedTasks.length / project.tasks.length) * 100,
+        };
+      });
+      return projectsCompletion;
+    }),
+
     //Actions
     addProject,
     addTaskToProject,
+    toggleTask,
   };
 });

@@ -15,19 +15,26 @@
             </tr>
           </thead>
           <tbody>
-            <!-- row 2 -->
+            <!-- row task -->
             <tr v-for="task in project?.tasks" :key="task.id" class="hover:bg-base-300">
-              <th class="flex justify-center"><input type="checkbox" name="" id="" /></th>
+              <th class="flex justify-center">
+                <input
+                  type="checkbox"
+                  :checked="!!task.completedAt"
+                  class="checkbox checkbox-primary"
+                  @change="projectStore.toggleTask(project?.id ?? '', task.id)"
+                />
+              </th>
               <td>{{ task.name }}</td>
               <td>{{ task.completedAt }}</td>
             </tr>
 
-            <!-- row 2 -->
+            <!-- row input task -->
             <tr class="hover:bg-base-300">
               <th></th>
               <td>
                 <input
-                  v-model="inputValue"
+                  v-model="newTask"
                   type="text"
                   class="input input-primary w-full opacity-60 transition-all hover:opacity-100 focus:opacity-100"
                   placeholder="Nueva tarea"
@@ -63,7 +70,7 @@ const router = useRouter();
 const props = defineProps<Props>();
 const projectStore = useProjectsStore();
 const project = ref<Project | null>();
-const inputValue = ref('');
+const newTask = ref('');
 
 // const project = projectStore.projectList.find((project) => project.id === props.id);
 
@@ -82,7 +89,9 @@ watch(
 );
 
 const submitTask = () => {
-  projectStore.addTaskToProject(props.id, inputValue.value);
-  inputValue.value = '';
+  if (!project.value) return;
+
+  projectStore.addTaskToProject(project.value.id, newTask.value);
+  newTask.value = '';
 };
 </script>
