@@ -11,21 +11,27 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="hover:bg-base-300">
-          <th>2</th>
-          <td>Hart Hagerty</td>
-          <td>Desktop Support Technician</td>
-          <td>Purple</td>
+        <tr
+          v-for="(project, index) in projectsStore.projectList"
+          :key="project.id"
+          class="hover:bg-base-300"
+        >
+          <th>{{ index + 1 }}</th>
+          <td>{{ project.name }}</td>
+          <td>{{ project.tasks.length }}</td>
+          <td><progress class="progress progress-primary w-56" value="20" max="100"></progress></td>
         </tr>
       </tbody>
     </table>
   </div>
+
   <input-modal
     placeholder="Ingrese el nombre del proyecto"
     title="Nuevo proyecto"
+    subtitle="Dale un nombre único a tu proyecto"
     :open="modalOpen"
     @close="modalOpen = false"
-    @value="onNewValue"
+    @value="projectsStore.addProject"
   />
 
   <custom-modal :open="customModalOpen">
@@ -61,11 +67,19 @@ import InputModal from '@/modules/common/components/InputModal.vue';
 import AddCircle from '@/modules/common/icons/AddCircle.vue';
 import ModalIcon from '@/modules/common/icons/ModalIcon.vue';
 import { ref } from 'vue';
+import { useProjectsStore } from '../store/projects.store';
 
 const modalOpen = ref(false);
 const customModalOpen = ref(false);
 
-const onNewValue = (projectName: string) => {
-  console.log({ projectName });
-};
+const projectsStore = useProjectsStore();
+
+// const onNewValue = (projectName: string) => {
+//   projectsStore.projectList.push({
+//     id: '3',
+//     name: projectName,
+//     tasks: [],
+//   });
+//   console.log({ projectName });
+// };
 </script>

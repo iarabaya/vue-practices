@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onUpdated, ref } from 'vue';
+import { nextTick, ref, watch } from 'vue';
 
 interface Props {
   open: boolean;
@@ -42,16 +42,21 @@ interface Props {
   subtitle?: string;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
 const emits = defineEmits<{ close: [void]; value: [text: string] }>();
 
 const inputValue = ref('');
 const inputRef = ref<HTMLInputElement | null>(null);
 
-onUpdated(() => {
-  console.log('updateado');
-  inputRef.value?.focus();
+watch(props, async ({ open }) => {
+  // console.log('newprops', open);
+  if (open) {
+    await nextTick();
+    inputRef.value?.focus();
+
+    console.log('entro al if');
+  }
 });
 
 const submitValue = () => {
