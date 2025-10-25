@@ -90,14 +90,21 @@
     </a>
   </div>
 
+  <div v-if="!products" class="text-center h-[500px]">
+    <h1 class="text-xl">Cargando Productos</h1>
+    <p>Espere por favor</p>
+  </div>
+
   <!-- Product List => Product[]-->
-  <product-list :products="products!" />
+  <product-list v-else :products="products" />
+  <button-pagination page="1" />
 </template>
 
 <script lang="ts" setup>
 import { useQuery } from '@tanstack/vue-query';
 import { getProductsAction } from '@/modules/products/actions';
 import ProductList from '@/modules/products/components/ProductList.vue';
+import ButtonPagination from '@/modules/common/components/ButtonPagination.vue';
 // getProductsAction();
 
 const { data: products } = useQuery({
